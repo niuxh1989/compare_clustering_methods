@@ -37,12 +37,7 @@ class settings_a: # set parameters
         self.original_image = Image.open(file)
         image_1 = np.array(self.original_image, dtype=np.float64) /255
         h, w, d = image_1.shape
-        image_2 = np.reshape(image_1, (h * w, d))
-        self.h = h
-        self.w = w
-        self.d = d
-        self.image_1 = image_1
-        self.image_2 = image_2 
+  _2 
         
         # k means clustering
         self.number_of_clusters = 20
@@ -80,9 +75,6 @@ class compare:
         self.image_2 =self.settings.image_2
         self.image = 0
         self.im = 0
-        self.name = ''
-        self.time_start = 0
-        self.time_end = 0
         self.time_total = 0
         self.clustering = 0
         self.labels = 0
@@ -92,24 +84,12 @@ class compare:
     def k_means(self):
         self.record_time_start()
         self.clustering = KMeans(n_clusters=self.settings.number_of_clusters, random_state=self.settings.random_state, init = self.settings.init).fit(self.image_2)
-        self.labels = self.clustering.labels_
-        self.record_time_end()
-        self.record_time_total()
         self.plot_1()
         self.save_result()
     
     def mean_shift(self):
         self.record_time_start()
         self.clustering = MeanShift().fit(self.image_2)
-        self.labels = self.clustering.labels_
-        self.record_time_end()
-        self.record_time_total()
-        self.plot_1()
-        self.save_result()
-        
-    def agglom(self):
-        self.record_time_start()
-        self.clustering = AgglomerativeClustering(n_clusters = self.settings.number_of_clusters_agg).fit(self.image_2)
         self.labels = self.clustering.labels_
         self.record_time_end()
         self.record_time_total()
@@ -137,10 +117,6 @@ class compare:
         
     def gaussian_mixture_model(self):
         self.record_time_start()
-        self.clustering = sklearn.mixture.GaussianMixture(n_components=self.settings.number_of_components, random_state = self.settings.random_state_1).fit(self.image_2)
-        self.labels = self.clustering.predict(self.image_2)
-        self.record_time_end()
-        self.record_time_total()
         self.plot_2()
         self.save_result()
         
@@ -158,10 +134,6 @@ class compare:
             if method == 'agglomerative clustering':  
                 self.name = 'agglomerative clustering'
                 self.agglom()
-            if method == 'self-organizing map clustering': 
-                self.name = 'self-organizing map clustering'
-                self.self_organizing_map()
-            if method == 'gaussian mixture model clustering': 
                 self.name = 'gaussian mixture model clustering'
                 self.gaussian_mixture_model()   
                 
