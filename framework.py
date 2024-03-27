@@ -1,11 +1,6 @@
 # A program for comparing different clustering methods
 # Created for publishing articles
 
-# by Xinghao Niu
-# Ph.D. student
-# Department of Economic information science
-# Faculty of Economics
-# Moscow State University
 # email: niuxh1989@gmail.com
 
 # Methods can be choosen:
